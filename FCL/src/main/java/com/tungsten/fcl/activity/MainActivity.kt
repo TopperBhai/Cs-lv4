@@ -39,7 +39,6 @@ import com.mio.util.AnimUtil.Companion.startAfter
 import com.mio.util.DisplayUtil
 import com.mio.util.GuideUtil
 import com.mio.util.GuideUtil.Companion.guideTarget
-import com.mio.util.ImageUtil
 import com.tungsten.fcl.R
 import com.tungsten.fcl.databinding.ActivityMainBinding
 import com.tungsten.fcl.game.JarExecutorHelper
@@ -238,7 +237,7 @@ class MainActivity : FCLActivity(), OnSelectListener, View.OnClickListener {
                         startActivity(Intent(this@MainActivity, ShellActivity::class.java))
                         true
                     }
-                    UpdateChecker.getInstance().checkForFirebaseUpdate(this@MainActivity, false).start()
+                    UpdateChecker.getInstance().checkAuto(this@MainActivity).start()
                     if (!checkNotificationPermission() && getSharedPreferences(
                             "launcher",
                             MODE_PRIVATE
@@ -429,7 +428,7 @@ class MainActivity : FCLActivity(), OnSelectListener, View.OnClickListener {
                         accountHint.text = getString(R.string.account_state_add)
                         avatar.setBackgroundDrawable(
                             TexturesLoader.toAvatar(
-                                TexturesLoader.getDefaultSkin(TextureModel.ALEX),
+                                TexturesLoader.getDefaultSkin(TextureModel.ALEX).image,
                                 ConvertUtils.dip2px(
                                     this@MainActivity, 30f
                                 )
