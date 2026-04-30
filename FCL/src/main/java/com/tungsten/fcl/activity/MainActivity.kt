@@ -231,7 +231,7 @@ class MainActivity : FCLActivity(), OnSelectListener, View.OnClickListener {
                 controller.setOnSelectListener(this@MainActivity); multiplayer.setOnSelectListener(this@MainActivity); setting.setOnSelectListener(this@MainActivity)
                 home.setSelected(true)
                 home.setOnLongClickListener { shareLog(); true }
-                UpdateChecker.getInstance().checkAuto(this@MainActivity).start()
+                // UpdateChecker.getInstance().checkAuto(this@MainActivity).start()  // Legacy update check removed
                 checkAndRequestNotificationPermission()
                 if (!modpackHandled) handleModpack(intent)
             }
