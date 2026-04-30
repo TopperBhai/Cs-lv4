@@ -331,7 +331,7 @@ public class Controller implements Cloneable, Observable {
 
     public static void showUpgradeDialog(Context context, String name, String id) {
         Schedulers.androidUIThread().execute(() -> {
-            FCLAlertDialog.Builder builder = new FCLAlertDialog.Builder(new ContextThemeWrapper(context, androidx.appcompat.R.style.Theme_AppCompat_DayNight_Dialog_Alert));
+            FCLAlertDialog.Builder builder = new FCLAlertDialog.Builder(context);  // Reverted: use app's native theme instead of ContextThemeWrapper hack
             builder.setCancelable(false);
             builder.setAlertLevel(FCLAlertDialog.AlertLevel.INFO);
             builder.setMessage(String.format(context.getString(R.string.control_upgrade), name));
