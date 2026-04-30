@@ -2,12 +2,13 @@
 <com.tungsten.fcllibrary.component.view.FCLUILayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/uiLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0B0B0B">
+    android:background="#0B0B0B"
+    tools:context=".activity.MainActivity">
 
-    <!-- Live video background (GONE unless video file exists) -->
     <VideoView
         android:id="@+id/videoView"
         android:layout_width="0dp"
@@ -18,7 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Theme background target used by ThemeEngine -->
     <ImageView
         android:id="@+id/background"
         android:layout_width="0dp"
@@ -29,17 +29,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Full-screen semi-transparent dark overlay for readability -->
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#88000000"
+        android:background="#66000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- TextureView for screen size detection (invisible) -->
     <TextureView
         android:id="@+id/textureView"
         android:layout_width="0dp"
@@ -49,338 +47,312 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.tungsten.fcllibrary.component.view.FCLTextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="18dp"
+        android:fontFamily="sans-serif-condensed"
+        android:letterSpacing="0.08"
+        android:text="CS LAUNCHER"
+        android:textColor="#FFB74D"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rightMenu"
-        android:layout_width="0dp"
+        android:id="@+id/leftMenu"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:background="@drawable/bg_game_menu"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="100dp"
+        android:paddingStart="5dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:cardBackgroundColor="#222222"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp"
+        <com.tungsten.fcllibrary.component.view.FCLMenuView
+            android:id="@+id/home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_home_24"
+            app:layout_constraintBottom_toTopOf="@id/manage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/start"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:cardBackgroundColor="#222222"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/bannerBrandGroup"
-            android:layout_width="0dp"
+        <com.tungsten.fcllibrary.component.view.FCLMenuView
+            android:id="@+id/manage"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="24dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toStartOf="@id/start"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_baseline_build_24"
+            app:layout_constraintBottom_toTopOf="@id/download"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home" />
+
+        <com.tungsten.fcllibrary.component.view.FCLMenuView
+            android:id="@+id/download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_baseline_cloud_download_24"
+            app:layout_constraintBottom_toTopOf="@id/controller"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/manage" />
+
+        <com.tungsten.fcllibrary.component.view.FCLMenuView
+            android:id="@+id/controller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_baseline_videogame_asset_24"
+            app:layout_constraintBottom_toTopOf="@id/multiplayer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/download" />
+
+        <com.tungsten.fcllibrary.component.view.FCLMenuView
+            android:id="@+id/multiplayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_outline_account_tree_24"
+            app:layout_constraintBottom_toTopOf="@id/setting"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/controller" />
+
+        <com.tungsten.fcllibrary.component.view.FCLMenuView
+            android:id="@+id/setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_baseline_settings_24"
+            app:layout_constraintBottom_toTopOf="@id/back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/multiplayer" />
+
+        <com.tungsten.fcllibrary.component.view.FCLMenuView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/setting" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rightMenu"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_right_menu"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.25">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:focusable="true"
+            app:layout_constraintBottom_toTopOf="@id/start"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="12dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/logo" />
+            <com.tungsten.fcllibrary.component.view.FCLImageView
+                android:id="@+id/avatar"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:elevation="50dp"
+                android:focusable="true"
+                android:stateListAnimator="@xml/anim_scale_large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.tungsten.fcllibrary.component.view.FCLTextView
-                android:id="@+id/title"
+                android:id="@+id/accountName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif-condensed"
-                android:letterSpacing="0.12"
-                android:maxLines="1"
-                android:shadowColor="#AA000000"
-                android:shadowDx="0"
-                android:shadowDy="2"
-                android:shadowRadius="8"
-                android:text="MINECRAFT"
-                android:textColor="#FFFFFF"
-                android:textSize="28sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:layout_marginTop="4dp"
+                android:singleLine="true"
+                android:text="@string/account_state_no_account"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/avatar"
+                app:use_theme_color="true" />
 
-        <LinearLayout
-            android:id="@+id/bannerActions"
+            <com.tungsten.fcllibrary.component.view.FCLTextView
+                android:id="@+id/accountHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:singleLine="true"
+                android:text="@string/account_state_add"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/accountName"
+                app:use_theme_color="true" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/start"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp"
-            android:gravity="end"
-            android:orientation="horizontal"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="5dp"
+            android:stateListAnimator="@xml/anim_scale"
+            app:layout_constraintBottom_toTopOf="@id/version"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/start">
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.tungsten.fcllibrary.component.view.FCLTextView
-                android:id="@+id/jar"
+                android:id="@+id/text_start"
                 android:layout_width="wrap_content"
-                android:layout_height="34dp"
-                android:layout_marginEnd="8dp"
-                android:background="#222222"
-                android:gravity="center"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content"
+                android:text="@string/launch"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/version_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:use_theme_color="true" />
+
+            <com.tungsten.fcllibrary.component.view.FCLImageView
+                android:id="@+id/icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.tungsten.fcllibrary.component.view.FCLTextView
-                android:id="@+id/version"
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
-                android:background="#222222"
+                android:id="@+id/versionName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="31dp"
+                android:ellipsize="marquee"
                 android:gravity="center"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/icon"
+                app:layout_constraintTop_toBottomOf="@id/text_start"
+                app:use_theme_color="true"
+                tools:text="1.21.1-Forge" />
 
-        <ScrollView
-            android:id="@+id/homeContentScroll"
+            <com.tungsten.fcllibrary.component.view.FCLProgressBar
+                android:id="@+id/versionProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/version"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:fillViewport="true"
-            android:overScrollMode="never"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            app:layout_constraintBottom_toTopOf="@id/playButtonCard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bannerActions">
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:stateListAnimator="@xml/anim_scale"
+            android:text="@string/manage_version"
+            android:textAllCaps="false"
+            app:autoSizeMaxTextSize="14sp"
+            app:autoSizeMinTextSize="8sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/jar"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/account"
-                    android:layout_width="match_parent"
-                    android:layout_height="72dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    app:cardBackgroundColor="#151515"
-                    app:cardCornerRadius="14dp"
-                    app:cardElevation="4dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="14dp"
-                        android:paddingEnd="14dp">
-
-                        <com.tungsten.fcllibrary.component.view.FCLImageView
-                            android:id="@+id/avatar"
-                            android:layout_width="44dp"
-                            android:layout_height="44dp"
-                            android:background="@drawable/circle_bg"
-                            android:padding="2dp"
-                            android:scaleType="centerCrop" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <com.tungsten.fcllibrary.component.view.FCLTextView
-                                android:id="@+id/accountName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:textColor="#FFFFFF"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                            <com.tungsten.fcllibrary.component.view.FCLTextView
-                                android:id="@+id/accountHint"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:textColor="#9A9A9A"
-                                android:textSize="11sp" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/versionInfoCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="74dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="16dp"
-                    app:cardBackgroundColor="#1A1A1A"
-                    app:cardCornerRadius="14dp"
-                    app:cardElevation="4dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="14dp"
-                        android:paddingEnd="14dp">
-
-                        <ImageView
-                            android:id="@+id/icon"
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:layout_marginEnd="12dp"
-                            android:scaleType="fitCenter" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <com.tungsten.fcllibrary.component.view.FCLTextView
-                                android:id="@+id/versionName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="marquee"
-                                android:maxLines="1"
-                                android:textColor="#FFFFFF"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                            <ProgressBar
-                                android:id="@+id/versionProgress"
-                                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="4dp"
-                                android:layout_marginTop="6dp"
-                                android:indeterminate="true"
-                                android:visibility="gone" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-        </ScrollView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/playButtonCard"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/jar"
             android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="24dp"
-            app:cardBackgroundColor="#00E5FF"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="12dp"
-            app:layout_constraintBottom_toTopOf="@id/leftMenu"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_play_block"
-                    android:tint="#0B0B0B" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed"
-                    android:letterSpacing="0.18"
-                    android:text="PLAY"
-                    android:textColor="#0B0B0B"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/leftMenu"
-            android:layout_width="0dp"
-            android:layout_height="84dp"
-            app:cardBackgroundColor="#161616"
-            app:cardCornerRadius="0dp"
-            app:cardElevation="10dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:stateListAnimator="@xml/anim_scale"
+            android:text="@string/jar_execute"
+            android:textAllCaps="false"
+            app:autoSizeMaxTextSize="14sp"
+            app:autoSizeMinTextSize="8sp"
+            app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintStart_toEndOf="@id/version" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp">
-
-                <com.tungsten.fcllibrary.component.view.FCLMenuView
-                    android:id="@+id/home"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp" />
-
-                <com.tungsten.fcllibrary.component.view.FCLMenuView
-                    android:id="@+id/manage"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp" />
-
-                <com.tungsten.fcllibrary.component.view.FCLMenuView
-                    android:id="@+id/download"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp" />
-
-                <com.tungsten.fcllibrary.component.view.FCLMenuView
-                    android:id="@+id/controller"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp" />
-
-                <com.tungsten.fcllibrary.component.view.FCLMenuView
-                    android:id="@+id/multiplayer"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp" />
-
-                <com.tungsten.fcllibrary.component.view.FCLMenuView
-                    android:id="@+id/setting"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/playButtonCard"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="24dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="#00E5FF"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/rightMenu"
+        app:layout_constraintStart_toEndOf="@id/leftMenu">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_play_block"
+                android:tint="#0B0B0B" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:letterSpacing="0.18"
+                android:text="PLAY"
+                android:textColor="#0B0B0B"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </com.tungsten.fcllibrary.component.view.FCLUILayout>
