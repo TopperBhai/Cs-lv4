@@ -3,7 +3,9 @@ package com.tungsten.fcl.setting;
 import static com.tungsten.fcl.util.FXUtils.onInvalidating;
 
 import android.app.AlertDialog;
+import android.app.Activity;
 import android.content.Context;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
@@ -329,22 +331,34 @@ public class Controller implements Cloneable, Observable {
 
     public static void showUpgradeDialog(Context context, String name, String id) {
         Schedulers.androidUIThread().execute(() -> {
-            new AlertDialog.Builder(context)
+            AlertDialog.Builder builder = new AlertDialog.Builder(context)
                     .setCancelable(false)
                     .setMessage(String.format(context.getString(R.string.control_upgrade), name))
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> Controllers.findControllerById(id).upgrade())
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .show();
+                    .setNegativeButton(android.R.string.cancel, null);
+            if (context instanceof Activity && !((Activity) context).isFinishing() && !((Activity) context).isDestroyed()) {
+                try {
+                    builder.show();
+                } catch (WindowManager.BadTokenException e) {
+                    e.printStackTrace();
+                }
+            }
         });
     }
 
     public static void showIncompatibleDialog(Context context, String name) {
         Schedulers.androidUIThread().execute(() -> {
-            new AlertDialog.Builder(context)
+            AlertDialog.Builder builder = new AlertDialog.Builder(context)
                     .setCancelable(false)
                     .setMessage(String.format(context.getString(R.string.control_incompatible), name))
-                    .setPositiveButton(android.R.string.ok, null)
-                    .show();
+                    .setPositiveButton(android.R.string.ok, null);
+            if (context instanceof Activity && !((Activity) context).isFinishing() && !((Activity) context).isDestroyed()) {
+                try {
+                    builder.show();
+                } catch (WindowManager.BadTokenException e) {
+                    e.printStackTrace();
+                }
+            }
         });
     }
 
