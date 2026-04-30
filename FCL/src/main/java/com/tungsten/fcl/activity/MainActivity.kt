@@ -19,6 +19,7 @@ import android.view.TextureView
 import android.view.View
 import android.view.animation.BounceInterpolator
 import android.view.animation.OvershootInterpolator
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -100,6 +101,25 @@ class MainActivity : FCLActivity(), OnSelectListener, View.OnClickListener {
         private lateinit var instance: WeakReference<MainActivity>
         @JvmStatic
         fun getInstance(): MainActivity = instance.get()!!
+
+        @JvmStatic
+        fun renderLauncherBackground(context: Context, target: ImageView, mode: String) {
+            try {
+                val backgroundRes = when (mode) {
+                    "0" -> R.drawable.bg_default
+                    "1" -> R.drawable.bg_enderman
+                    "2" -> R.drawable.bg_neon
+                    else -> R.drawable.bg_default
+                }
+                Glide.with(context)
+                    .load(backgroundRes)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(target)
+            } catch (e: Exception) {
+                Glide.with(context).clear(target)
+                target.setImageResource(R.drawable.bg_default)
+            }
+        }
     }
 
     lateinit var binding: ActivityMainBinding
@@ -431,31 +451,7 @@ class MainActivity : FCLActivity(), OnSelectListener, View.OnClickListener {
     fun setupAnimatedBackground() {
         val mode = sharedPreferences.getString("launcher_bg_mode", "0") ?: "0"
         val imageView = binding.bgImage
-
-        try {
-            when (mode) {
-                "0" -> Glide.with(this)
-                    .load("https://i.ibb.co/MxjthLZ1/file-00000000045871fab4d75aeb67187ce8.png")
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(imageView)
-                "1" -> Glide.with(this)
-                    .load("https://i.ibb.co/RZJ908v/thumb-1920-1154114.png")
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(imageView)
-                "2" -> Glide.with(this)
-                    .asGif()
-                    .load("https://i.ibb.co/tTwCBF30/200-1.gif")
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(imageView)
-                else -> Glide.with(this)
-                    .load("https://i.ibb.co/MxjthLZ1/file-00000000045871fab4d75aeb67187ce8.png")
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(imageView)
-            }
-        } catch (e: Exception) {
-            Glide.with(this).clear(imageView)
-            imageView.setImageResource(R.drawable.cs_bg)
-        }
+        renderLauncherBackground(this, imageView, mode)
     }
 
     private fun handleModpack(intent: Intent) { val path = intent.getStringExtra("modpack_cache_path") ?: return; modpackHandled = true; val file = File(path); if (!file.exists()) return; Toast.makeText(this, getString(R.string.modpack_external_detected, file.name), Toast.LENGTH_SHORT).show(); binding.download.isSelected = true; val downloadUI = uiManager.downloadUI; downloadUI.checkPageManager { downloadUI.pageManager.showTempPage(LocalModpackPage(this, PageManager.PAGE_ID_TEMP, downloadUI.container, R.layout.page_modpack, profile, null, file)) } }

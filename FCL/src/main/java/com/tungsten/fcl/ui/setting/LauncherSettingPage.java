@@ -53,6 +53,7 @@ import com.tungsten.fcllibrary.component.theme.ThemeEngine;
 import com.tungsten.fcllibrary.component.ui.FCLCommonPage;
 import com.tungsten.fcllibrary.component.view.FCLButton;
 import com.tungsten.fcllibrary.component.view.FCLCheckBox;
+import com.tungsten.fcllibrary.component.view.FCLImageView;
 import com.tungsten.fcllibrary.component.view.FCLNumberSeekBar;
 import com.tungsten.fcllibrary.component.view.FCLSpinner;
 import com.tungsten.fcllibrary.component.view.FCLSwitch;
@@ -102,6 +103,7 @@ public class LauncherSettingPage extends FCLCommonPage implements View.OnClickLi
     private FCLSwitch ignoreNotch;
     private FCLSwitch closeSkinModel;
     private FCLSpinner<String> backgroundThemeSpinner;
+    private FCLImageView backgroundPreview;
     private FCLNumberSeekBar videoBackgroundVolume;
     private FCLNumberSeekBar animationSpeed;
     private FCLNumberSeekBar vibrationDuration;
@@ -246,6 +248,8 @@ public class LauncherSettingPage extends FCLCommonPage implements View.OnClickLi
         String currentTheme = sharedPreferences.getString("launcher_bg_mode", "0");
         int selectedIndex = modeToIndex(currentTheme);
         backgroundThemeSpinner.setSelection(selectedIndex, false);
+        backgroundPreview = findViewById(R.id.background_preview);
+        applyBackgroundPreview(selectedIndex);
         
         // Set listener for theme changes
         backgroundThemeSpinner.setOnItemSelectedListener(this);
@@ -667,6 +671,7 @@ public class LauncherSettingPage extends FCLCommonPage implements View.OnClickLi
         } else if (parent == backgroundThemeSpinner) {
             String mode = indexToMode(position);
             sharedPreferences.edit().putString("launcher_bg_mode", mode).apply();
+            applyBackgroundPreview(position);
             try {
                 MainActivity.getInstance().setupAnimatedBackground();
             } catch (Exception ignored) {
@@ -738,5 +743,13 @@ public class LauncherSettingPage extends FCLCommonPage implements View.OnClickLi
             default:
                 return 0;
         }
+    }
+
+    private void applyBackgroundPreview(int index) {
+        if (backgroundPreview == null) {
+            return;
+        }
+        String mode = indexToMode(index);
+        MainActivity.renderLauncherBackground(getContext(), backgroundPreview, mode);
     }
 }
