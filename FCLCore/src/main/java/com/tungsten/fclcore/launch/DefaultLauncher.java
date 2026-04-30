@@ -15,10 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+// Firebase removed — use Mojang direct skin URL
 import androidx.annotation.NonNull;
 
 import com.google.gson.GsonBuilder;
@@ -444,28 +441,9 @@ public class DefaultLauncher extends Launcher {
         Log.i("CS_SkinInjector", "Injecting skin for: " + username);
 
         try {
-            FirebaseDatabase.getInstance()
-                .getReference("users")
-                .child(username)
-                .child("skinUrl")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String skinUrl = snapshot.getValue(String.class);
-                        if (skinUrl != null && !skinUrl.isEmpty()) {
-                            Log.i("CS_SkinInjector", "Firebase URL found: " + skinUrl);
-                            downloadAndSaveSkin(skinUrl, savePath, latch);
-                        } else {
-                            downloadAndSaveSkin("https://minotar.net/skin/" + username, savePath, latch);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        downloadAndSaveSkin("https://minotar.net/skin/" + username, savePath, latch);
-                    }
-                });
-
+            // Firebase removed — directly download from Mojang (minotar)
+            String mojangUrl = "https://minotar.net/skin/" + username;
+            downloadAndSaveSkin(mojangUrl, savePath, latch);
             // Wait for download to finish (Max 5 seconds)
             latch.await(5000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {

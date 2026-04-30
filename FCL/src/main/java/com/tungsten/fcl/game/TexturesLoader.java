@@ -10,10 +10,7 @@ import android.util.LruCache;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+// Firebase removed — use Mojang / direct HTTP fallback
 import com.tungsten.fclcore.auth.Account;
 import com.tungsten.fclcore.auth.yggdrasil.TextureModel;
 import com.tungsten.fclcore.fakefx.beans.property.ObjectProperty;
@@ -133,50 +130,6 @@ public class TexturesLoader {
     // =========================================================
     // ✅ 2. AVATAR CROP
     // =========================================================
-
-    /**
-     * Skin bitmap se avatar (face) crop karo.
-     * Minecraft skin format: face 8x8 at (8,8)
-     */
-    @Nullable
-    public static Bitmap toAvatar(@Nullable Bitmap skin, int size) {
-        if (skin == null) return null;
-
-        try {
-            // Face crop (8,8) to (16,16)
-            Bitmap face = Bitmap.createBitmap(skin, 8, 8, 8, 8);
-
-            // Resize to requested size
-            Bitmap avatar = Bitmap.createScaledBitmap(
-                face, size, size, false
-            );
-
-            // Overlay layer (hat layer at 40,8)
-            if (skin.getWidth() >= 56 && skin.getHeight() >= 16) {
-                try {
-                    Bitmap hat = Bitmap.createBitmap(skin, 40, 8, 8, 8);
-                    Bitmap hatScaled = Bitmap.createScaledBitmap(
-                        hat, size, size, false
-                    );
-
-                    Canvas canvas = new Canvas(avatar);
-                    canvas.drawBitmap(hatScaled, 0, 0, new Paint());
-                    hat.recycle();
-                    hatScaled.recycle();
-                } catch (Exception ignored) {
-                    // Hat layer optional hai
-                }
-            }
-
-            face.recycle();
-            return avatar;
-
-        } catch (Exception e) {
-            Log.e(TAG, "Avatar crop failed", e);
-            return null;
-        }
-    }
-
     // =========================================================
     // ✅ 3. FIREBASE SKIN BINDING
     // Main method - avatarBinding with Firebase support
@@ -208,15 +161,15 @@ public class TexturesLoader {
         // ✅ STEP 1: Cache check karo pehle
         String cacheKey = "avatar_" + username + "_" + size;
         Bitmap cachedAvatar = memoryCache.get(cacheKey);
-        if (cachedAvatar != null) {
+            if (cachedAvatar != null) {
             property.set(cachedAvatar);
             // Background mein refresh bhi karo
-            loadFromFirebase(username, size, property, cacheKey);
+            loadFromMojang(username, size, property, cacheKey);
             return property;
         }
 
-        // ✅ STEP 2: Firebase se load karo
-        loadFromFirebase(username, size, property, cacheKey);
+        // ✅ STEP 2: Directly try Mojang (no Firebase)
+        loadFromMojang(username, size, property, cacheKey);
 
         return property;
     }
@@ -224,42 +177,7 @@ public class TexturesLoader {
     /**
      * Firebase se skin URL fetch karo aur load karo.
      */
-    private static void loadFromFirebase(
-            @NonNull String username,
-            int size,
-            @NonNull ObjectProperty<Bitmap> property,
-            @NonNull String cacheKey) {
-
-        FirebaseDatabase.getInstance()
-            .getReference(DB_USERS)
-            .child(username)
-            .child(DB_SKIN_URL)
-            .addListenerForSingleValueEvent(new ValueEventListener() {
-
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String skinUrl = snapshot.getValue(String.class);
-
-                    if (skinUrl != null && !skinUrl.isBlank()) {
-                        // ✅ Firebase URL mili - load karo
-                        loadSkinFromUrl(skinUrl, size, property, cacheKey,
-                            // Fallback agar Firebase URL fail ho
-                            () -> loadFromMojang(username, size, property, cacheKey)
-                        );
-                    } else {
-                        // ✅ Firebase mein skin nahi - Mojang try karo
-                        loadFromMojang(username, size, property, cacheKey);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.w(TAG, "Firebase load cancelled: " + error.getMessage());
-                    // ✅ Firebase fail - Mojang try karo
-                    loadFromMojang(username, size, property, cacheKey);
-                }
-            });
-    }
+    // Firebase removed — we directly query Mojang as primary source
 
     /**
      * Mojang API se skin load karo.
@@ -398,49 +316,14 @@ public class TexturesLoader {
         String username = account.getUsername();
         if (username == null) return property;
 
-        // Firebase se skin URL lo aur game file mein save karo
-        FirebaseDatabase.getInstance()
-            .getReference(DB_USERS)
-            .child(username)
-            .child(DB_SKIN_URL)
-            .addListenerForSingleValueEvent(new ValueEventListener() {
-
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String skinUrl = snapshot.getValue(String.class);
-
-                    executor.execute(() -> {
-                        Bitmap skin = null;
-
-                        // ✅ Firebase URL se try karo
-                        if (skinUrl != null && !skinUrl.isBlank()) {
-                            skin = downloadBitmap(skinUrl);
-                        }
-
-                        // ✅ Mojang API fallback
-                        if (skin == null) {
-                            String mojangUrl =
-                                "https://minotar.net/skin/" + username;
-                            skin = downloadBitmap(mojangUrl);
-                        }
-
-                        // ✅ Default fallback
-                        if (skin == null) {
-                            skin = getDefaultSkin(TextureModel.STEVE);
-                        }
-
-                        if (skin != null) {
-                            property.set(skin);
-                        }
-                    });
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.w(TAG, "textureBinding cancelled: "
-                        + error.getMessage());
-                }
-            });
+        // Try Mojang directly (Firebase removed)
+        executor.execute(() -> {
+            Bitmap skin = null;
+            String mojangUrl = "https://minotar.net/skin/" + username;
+            skin = downloadBitmap(mojangUrl);
+            if (skin == null) skin = getDefaultSkin(TextureModel.STEVE);
+            if (skin != null) property.set(skin);
+        });
 
         return property;
     }
@@ -463,7 +346,7 @@ public class TexturesLoader {
         memoryCache.remove(cacheKey);
 
         // Fresh load karo
-        loadFromFirebase(username, size, property, cacheKey);
+        loadFromMojang(username, size, property, cacheKey);
 
         Log.d(TAG, "Skin refresh triggered for: " + username);
     }

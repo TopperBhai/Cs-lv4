@@ -7,12 +7,11 @@ import android.net.Uri
 import android.util.Log
 import android.util.LruCache
 import android.webkit.URLUtil
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
+import com.tungsten.fclauncher.utils.FCLPath
+import android.content.SharedPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.net.HttpURLConnection
@@ -80,13 +79,9 @@ class CSSkinManager(
     // =========================================================
     // Firebase References
     // =========================================================
-    private val db = FirebaseDatabase
-        .getInstance()
-        .getReference(DB_USERS)
-
-    private val storage = FirebaseStorage
-        .getInstance()
-        .getReference("skins")
+    // Local storage for skin URL (replaces Firebase)
+    private val prefs: SharedPreferences = context.getSharedPreferences("launcher", Context.MODE_PRIVATE)
+    private val skinDir = java.io.File(FCLPath.FILES_DIR, "skins").apply { if (!exists()) mkdirs() }
 
     // =========================================================
     // METHOD 1: URL se Skin Update
@@ -137,26 +132,18 @@ class CSSkinManager(
                     return@launch
                 }
 
-                // Firebase mein save
-                db.child(username)
-                    .child(DB_SKIN_URL)
-                    .setValue(newUrl)
-                    .await()
-
-                db.child(username)
-                    .child("lastSkinUpdate")
-                    .setValue(System.currentTimeMillis())
-                    .await()
+                // Save locally (prefs)
+                prefs.edit()
+                    .putString("skin_url_" + username, newUrl)
+                    .putLong("skin_last_update_" + username, System.currentTimeMillis())
+                    .apply()
 
                 // Cache invalidate
                 skinCache.remove(username)
 
                 withContext(Dispatchers.Main) {
                     onLoading(false)
-                    onSuccess(
-                        "✅ Skin update ho gaya!\n" +
-                        "Game mein rejoin karo."
-                    )
+                    onSuccess("✅ Skin update ho gaya!\nGame mein rejoin karo.")
                 }
 
             } catch (e: Exception) {
@@ -205,22 +192,17 @@ class CSSkinManager(
                     return@launch
                 }
 
-                val storageRef = storage.child("$username/skin.png")
-                val bytes      = bitmapToBytes(bitmap)
+                val bytes = bitmapToBytes(bitmap)
                 bitmap.recycle()
 
-                storageRef.putBytes(bytes).await()
-                val downloadUrl = storageRef.downloadUrl.await().toString()
+                val outFile = java.io.File(skinDir, "$username.png")
+                outFile.outputStream().use { it.write(bytes) }
+                val downloadUrl = "file://${outFile.absolutePath}"
 
-                db.child(username)
-                    .child(DB_SKIN_URL)
-                    .setValue(downloadUrl)
-                    .await()
-
-                db.child(username)
-                    .child("lastSkinUpdate")
-                    .setValue(System.currentTimeMillis())
-                    .await()
+                prefs.edit()
+                    .putString("skin_url_" + username, downloadUrl)
+                    .putLong("skin_last_update_" + username, System.currentTimeMillis())
+                    .apply()
 
                 skinCache.remove(username)
 
@@ -264,15 +246,10 @@ class CSSkinManager(
                     return@launch
                 }
 
-                db.child(csUsername)
-                    .child(DB_SKIN_URL)
-                    .setValue(skinUrl)
-                    .await()
-
-                db.child(csUsername)
-                    .child("lastSkinUpdate")
-                    .setValue(System.currentTimeMillis())
-                    .await()
+                prefs.edit()
+                    .putString("skin_url_" + csUsername, skinUrl)
+                    .putLong("skin_last_update_" + csUsername, System.currentTimeMillis())
+                    .apply()
 
                 skinCache.remove(csUsername)
 
@@ -304,10 +281,9 @@ class CSSkinManager(
 
         scope.launch {
             try {
-                db.child(username)
-                    .child(DB_SKIN_URL)
-                    .setValue(url)
-                    .await()
+                prefs.edit()
+                    .putString("skin_url_" + username, url)
+                    .apply()
 
                 skinCache.remove(username)
 
@@ -333,14 +309,7 @@ class CSSkinManager(
     fun getCurrentSkin(username: String, onResult: (String) -> Unit) {
         scope.launch {
             try {
-                val snapshot = db
-                    .child(username)
-                    .child(DB_SKIN_URL)
-                    .get()
-                    .await()
-
-                val url = snapshot.getValue(String::class.java) ?: URL_STEVE
-
+                val url = prefs.getString("skin_url_" + username, URL_STEVE) ?: URL_STEVE
                 withContext(Dispatchers.Main) {
                     onResult(url)
                 }

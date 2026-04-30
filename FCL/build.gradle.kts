@@ -9,8 +9,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.serialization") version "2.3.20"
-    // Firebase Google Services Plugin
-    id("com.google.gms.google-services") version "4.4.1"
 }
 
 android {
@@ -276,16 +274,8 @@ dependencies {
     implementation(libs.datastore)
     implementation(libs.kotlinx.serialization.json)
 
-    // =========================================================
-    // ✅ Firebase - CS Account System (Modern Versions)
-    // =========================================================
-    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.firebase:firebase-database")
-    implementation("com.google.firebase:firebase-storage")
-
-    // ✅ Coroutines (Restored to 1.7.3 to match modern project)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 
     // Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")

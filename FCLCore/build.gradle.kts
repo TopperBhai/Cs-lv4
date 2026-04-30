@@ -53,6 +53,6 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.jsoup)
-    implementation("com.google.firebase:firebase-database-ktx:20.3.0")
+    // Firebase removed - network calls handled via direct HTTP where needed
 
 }
