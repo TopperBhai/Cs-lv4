@@ -1,0 +1,191 @@
+name: Android CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      build_type:
+        description: "Build Type"
+        required: true
+        default: "debug"
+        type: choice
+        options:
+          - debug
+          - release
+          - both
+      jdk_version:
+        description: "JDK Version"
+        required: true
+        default: "17"
+        type: choice
+        options:
+          - "8"
+          - "11"
+          - "17"
+          - "21"
+          - "all"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ================================
+  # BUILD WITH SINGLE JDK (Default)
+  # ================================
+  build-single:
+    name: Build • JDK ${{ matrix.jdk }}
+    if: github.event.inputs.jdk_version != 'all' || github.event_name != 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    strategy:
+      matrix:
+        jdk: ${{ github.event.inputs.jdk_version && fromJSON(format('["{0}"]', github.event.inputs.jdk_version)) || fromJSON('["17"]') }}
+      fail-fast: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ matrix.jdk }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.jdk }}
+          distribution: "temurin"
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Determine build type
+        id: build-type
+        run: |
+          BUILD_TYPE="${{ github.event.inputs.build_type }}"
+          if [ -z "$BUILD_TYPE" ]; then
+            BUILD_TYPE="debug"
+          fi
+          echo "type=$BUILD_TYPE" >> $GITHUB_OUTPUT
+
+      - name: Build Debug APK
+        if: steps.build-type.outputs.type == 'debug' || steps.build-type.outputs.type == 'both'
+        run: ./gradlew clean assembleDebug --stacktrace --no-daemon --no-build-cache
+
+      - name: Build Release APK
+        if: steps.build-type.outputs.type == 'release' || steps.build-type.outputs.type == 'both'
+        run: ./gradlew clean assembleRelease --stacktrace --no-daemon --no-build-cache
+
+      - name: Upload Debug APK
+        if: steps.build-type.outputs.type == 'debug' || steps.build-type.outputs.type == 'both'
+        uses: actions/upload-artifact@v4
+        with:
+          name: APK-Debug-JDK${{ matrix.jdk }}
+          path: |
+            **/build/outputs/apk/debug/*.apk
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload Release APK
+        if: steps.build-type.outputs.type == 'release' || steps.build-type.outputs.type == 'both'
+        uses: actions/upload-artifact@v4
+        with:
+          name: APK-Release-JDK${{ matrix.jdk }}
+          path: |
+            **/build/outputs/apk/release/*.apk
+          if-no-files-found: warn
+          retention-days: 14
+
+  # ================================
+  # BUILD WITH ALL JDKs (Matrix)
+  # ================================
+  build-all-jdk:
+    name: Build • JDK ${{ matrix.jdk }}
+    if: github.event.inputs.jdk_version == 'all' && github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    strategy:
+      matrix:
+        jdk: ["8", "11", "17", "21"]
+      fail-fast: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ matrix.jdk }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.jdk }}
+          distribution: "temurin"
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Determine build type
+        id: build-type
+        run: |
+          BUILD_TYPE="${{ github.event.inputs.build_type }}"
+          if [ -z "$BUILD_TYPE" ]; then
+            BUILD_TYPE="debug"
+          fi
+          echo "type=$BUILD_TYPE" >> $GITHUB_OUTPUT
+
+      - name: Build Debug APK
+        if: steps.build-type.outputs.type == 'debug' || steps.build-type.outputs.type == 'both'
+        run: ./gradlew clean assembleDebug --stacktrace --no-daemon --no-build-cache
+
+      - name: Build Release APK
+        if: steps.build-type.outputs.type == 'release' || steps.build-type.outputs.type == 'both'
+        run: ./gradlew clean assembleRelease --stacktrace --no-daemon --no-build-cache
+
+      - name: Upload Debug APK
+        if: steps.build-type.outputs.type == 'debug' || steps.build-type.outputs.type == 'both'
+        uses: actions/upload-artifact@v4
+        with:
+          name: APK-Debug-JDK${{ matrix.jdk }}
+          path: |
+            **/build/outputs/apk/debug/*.apk
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload Release APK
+        if: steps.build-type.outputs.type == 'release' || steps.build-type.outputs.type == 'both'
+        uses: actions/upload-artifact@v4
+        with:
+          name: APK-Release-JDK${{ matrix.jdk }}
+          path: |
+            **/build/outputs/apk/release/*.apk
+          if-no-files-found: warn
+          retention-days: 14
+
+  # ================================
+  # BUILD SUMMARY
+  # ================================
+  summary:
+    name: Build Summary
+    needs: [build-single, build-all-jdk]
+    if: always()
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check build status
+        run: |
+          echo "## 📦 Android CI Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Item | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| **Trigger** | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Branch** | ${{ github.ref_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Commit** | ${{ github.sha }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Build Type** | ${{ github.event.inputs.build_type || 'debug' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **JDK Version** | ${{ github.event.inputs.jdk_version || '17' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Build completed!" >> $GITHUB_STEP_SUMMARY

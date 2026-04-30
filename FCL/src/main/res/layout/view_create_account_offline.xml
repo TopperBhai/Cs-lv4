@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#1A1B2E"> <androidx.appcompat.widget.LinearLayoutCompat
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp">
+
+            <com.tungsten.fcllibrary.component.view.FCLTextView
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/account_create_username"
+                android:textColor="#FFB74D"
+                android:layout_gravity="center"/>
+
+            <com.tungsten.fcllibrary.component.view.FCLEditText
+                android:id="@+id/username"
+                android:singleLine="true"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textColor="#E8EAF6"
+                android:layout_gravity="center"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.tungsten.fcllibrary.component.view.FCLTextView
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Skin URL (NameMC/Mojang)"
+                android:textColor="#FFB74D"
+                android:layout_gravity="center"/>
+
+            <com.tungsten.fcllibrary.component.view.FCLEditText
+                android:id="@+id/skin_url"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="http://textures.minecraft.net/texture/..."
+                android:textColor="#E8EAF6"
+                android:singleLine="true"
+                android:layout_gravity="center"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</ScrollView>

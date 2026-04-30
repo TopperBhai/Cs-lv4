@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_primary">
+
+    <!-- ======================================= -->
+    <!-- TOP HEADER BAR                          -->
+    <!-- ======================================= -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/header_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#FF1A1B2E"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="8dp"
+        app:strokeColor="#33FFB74D"
+        app:strokeWidth="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="16dp">
+
+            <!-- ✅ FIX: ic_minecraft → ic_baseline_settings_24 -->
+            <ImageView
+                android:id="@+id/header_icon"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_baseline_settings_24"
+                android:tint="#FFB74D"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- CS Launcher Branding -->
+            <com.tungsten.fcllibrary.component.view.FCLTextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Wᴇʟᴄᴏᴍᴇ ᴛᴏ CS Lᴀᴜɴᴄʜᴇʀ BETA"
+                android:textColor="#E8EAF6"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:auto_text_background_tint="false"
+                app:auto_text_tint="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/header_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- ======================================= -->
+    <!-- LEFT PANEL - Runtime Status List        -->
+    <!-- ======================================= -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/left_panel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        app:cardBackgroundColor="#CC1A1B2E"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp"
+        app:strokeColor="#1AFFFFFF"
+        app:strokeWidth="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/right_panel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_card"
+        app:layout_constraintWidth_percent="0.55">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Section Label -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="10dp"
+                android:text="RUNTIME COMPONENTS"
+                android:textColor="#FFB74D"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.12" />
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#1AFFFFFF"
+                android:layout_marginHorizontal="12dp" />
+
+            <!-- Runtime Scroll List -->
+            <ScrollView
+                android:id="@+id/runtime_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingVertical="8dp">
+
+                    <include android:id="@+id/row_lwjgl"
+                        layout="@layout/item_runtime_row" />
+
+                    <include android:id="@+id/row_cacio"
+                        layout="@layout/item_runtime_row" />
+
+                    <include android:id="@+id/row_cacio17"
+                        layout="@layout/item_runtime_row" />
+
+                    <include android:id="@+id/row_java8"
+                        layout="@layout/item_runtime_row" />
+
+                    <include android:id="@+id/row_java17"
+                        layout="@layout/item_runtime_row" />
+
+                    <include android:id="@+id/row_java21"
+                        layout="@layout/item_runtime_row" />
+
+                    <include android:id="@+id/row_java25"
+                        layout="@layout/item_runtime_row" />
+
+                    <include android:id="@+id/row_jna"
+                        layout="@layout/item_runtime_row" />
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- ======================================= -->
+    <!-- RIGHT PANEL - Info + Install Button     -->
+    <!-- ======================================= -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/right_panel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/left_panel"
+        app:layout_constraintTop_toBottomOf="@id/header_card">
+
+        <!-- Info Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/info_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="#CC1A1B2E"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            app:strokeColor="#1AFFFFFF"
+            app:strokeWidth="1dp"
+            app:layout_constraintBottom_toTopOf="@id/install_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp">
+
+                <!-- ✅ FIX: ic_minecraft → ic_baseline_cloud_download_24 -->
+                <ImageView
+                    android:id="@+id/info_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_baseline_cloud_download_24"
+                    android:tint="#FFB74D"
+                    android:padding="8dp"
+                    android:background="@drawable/bg_icon_circle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Info Title -->
+                <com.tungsten.fcllibrary.component.view.FCLTextView
+                    android:id="@+id/info_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:text="Core Runtime Assets"
+                    android:textColor="#E8EAF6"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:auto_text_tint="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/info_icon" />
+
+                <!-- Amber Divider -->
+                <View
+                    android:id="@+id/info_divider"
+                    android:layout_width="40dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="12dp"
+                    android:background="#FFB74D"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/info_title" />
+
+                <!-- Info Description -->
+                <com.tungsten.fcllibrary.component.view.FCLTextView
+                    android:id="@+id/info_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:lineSpacingMultiplier="1.4"
+                    android:text="Required components to run Minecraft seamlessly on CS Launcher."
+                    android:textColor="#9FA8DA"
+                    android:textSize="12sp"
+                    app:auto_text_tint="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/info_divider" />
+
+                <!-- Status Chips -->
+                <LinearLayout
+                    android:id="@+id/status_chips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/info_desc">
+
+                    <!-- Installed Chip -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        app:cardBackgroundColor="#1A66BB6A"
+                        app:cardCornerRadius="20dp"
+                        app:strokeColor="#3366BB6A"
+                        app:strokeWidth="1dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="6dp"
+                            android:text="✓ Installed"
+                            android:textColor="#66BB6A"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Pending Chip -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="#1AFFA726"
+                        app:cardCornerRadius="20dp"
+                        app:strokeColor="#33FFA726"
+                        app:strokeWidth="1dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="6dp"
+                            android:text="⏳ Pending"
+                            android:textColor="#FFA726"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ✅ Install Button - ID button ke andar -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/install_card"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            app:cardBackgroundColor="#00000000"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.tungsten.fcllibrary.component.view.FCLButton
+                android:id="@+id/install"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_play_button_gradient"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:letterSpacing="0.1"
+                android:text="START INSTALLATION"
+                android:textColor="#1A1B2E"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null"
+                app:ripple="true" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

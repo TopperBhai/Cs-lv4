@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- =============================== -->
+    <!--        BASE COLORS              -->
+    <!-- =============================== -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- =============================== -->
+    <!--        THEME COLORS             -->
+    <!-- =============================== -->
+    <color name="default_theme_color">#FFB74D</color>
+    <color name="theme_color_dark">#E65100</color>
+    <color name="theme_color_light">#FFE0B2</color>
+    <color name="theme_accent">#FF9800</color>
+
+    <!-- =============================== -->
+    <!--        BACKGROUND COLORS        -->
+    <!-- =============================== -->
+    <color name="bg_primary">#1A1B2E</color>
+    <color name="bg_secondary">#16213E</color>
+    <color name="bg_tertiary">#0F3460</color>
+    <color name="bg_card">#CC1A1B2E</color>
+    <color name="bg_card_light">#1AFFFFFF</color>
+    <color name="bg_overlay">#55000000</color>
+    <color name="bg_overlay_light">#33000000</color>
+
+    <!-- =============================== -->
+    <!--        UI COMPONENT COLORS      -->
+    <!-- =============================== -->
+    <color name="ui_bg_color">#CC1A1B2E</color>
+    <color name="right_menu_color">#E61A1B2E</color>
+    <color name="left_menu_color">#CC1A1B2E</color>
+    <color name="icon_background_color">#26FFB74D</color>
+    <color name="nav_item_bg">#00000000</color>
+    <color name="nav_item_selected_bg">#26FFB74D</color>
+    <color name="divider_color">#1AFFFFFF</color>
+    <color name="stroke_color">#2AFFFFFF</color>
+    <color name="stroke_accent">#33FFB74D</color>
+
+    <!-- =============================== -->
+    <!--        TEXT COLORS              -->
+    <!-- =============================== -->
+    <color name="primary_text">#E8EAF6</color>
+    <color name="secondary_text">#9FA8DA</color>
+    <color name="hint_text">#5C6BC0</color>
+    <color name="accent_text">#FFB74D</color>
+    <color name="disabled_text">#4D6B8A</color>
+    <color name="error_text">#EF5350</color>
+    <color name="success_text">#66BB6A</color>
+    <color name="warning_text">#FFA726</color>
+
+    <!-- =============================== -->
+    <!--        ICON TINT COLORS         -->
+    <!-- =============================== -->
+    <color name="icon_home">#FFB74D</color>
+    <color name="icon_manage">#78909C</color>
+    <color name="icon_download">#78909C</color>
+    <color name="icon_controller">#78909C</color>
+    <color name="icon_multiplayer">#78909C</color>
+    <color name="icon_settings">#78909C</color>
+    <color name="icon_back">#EF5350</color>
+    <color name="icon_default">#78909C</color>
+
+    <!-- =============================== -->
+    <!--        BUTTON COLORS            -->
+    <!-- =============================== -->
+    <color name="btn_play_start">#FFB74D</color>
+    <color name="btn_play_center">#FFA726</color>
+    <color name="btn_play_end">#FF9800</color>
+    <color name="btn_play_text">#1A1B2E</color>
+    <color name="btn_version">#7986CB</color>
+    <color name="btn_jar">#4DB6AC</color>
+    <color name="btn_version_ripple">#337986CB</color>
+    <color name="btn_jar_ripple">#334DB6AC</color>
+    <color name="btn_primary">#FFB74D</color>
+    <color name="btn_secondary">#5C6BC0</color>
+    <color name="btn_danger">#EF5350</color>
+    <color name="btn_success">#66BB6A</color>
+
+    <!-- =============================== -->
+    <!--        AVATAR / PROFILE         -->
+    <!-- =============================== -->
+    <color name="avatar_ring">#FFB74D</color>
+    <color name="avatar_bg">#1AFFB74D</color>
+    <color name="status_online">#66BB6A</color>
+    <color name="status_offline">#EF5350</color>
+    <color name="status_away">#FFA726</color>
+    <color name="status_border">#1A1B2E</color>
+
+    <!-- =============================== -->
+    <!--        CARD COLORS              -->
+    <!-- =============================== -->
+    <color name="card_bg">#CC1A1B2E</color>
+    <color name="card_bg_light">#1AFFFFFF</color>
+    <color name="card_stroke">#2AFFFFFF</color>
+    <color name="card_stroke_accent">#2AFFB74D</color>
+    <color name="card_elevation_tint">#FFB74D</color>
+
+    <!-- =============================== -->
+    <!--        ACCENT PALETTE           -->
+    <!-- =============================== -->
+    <color name="accent_amber">#FFB74D</color>
+    <color name="accent_blue">#7986CB</color>
+    <color name="accent_teal">#4DB6AC</color>
+    <color name="accent_green">#66BB6A</color>
+    <color name="accent_red">#EF5350</color>
+    <color name="accent_purple">#AB47BC</color>
+    <color name="accent_indigo">#5C6BC0</color>
+    <color name="accent_cyan">#26C6DA</color>
+    <color name="accent_orange">#FF9800</color>
+
+    <!-- =============================== -->
+    <!--        RIPPLE COLORS            -->
+    <!-- =============================== -->
+    <color name="ripple_amber">#33FFB74D</color>
+    <color name="ripple_blue">#337986CB</color>
+    <color name="ripple_teal">#334DB6AC</color>
+    <color name="ripple_red">#33EF5350</color>
+    <color name="ripple_white">#1AFFFFFF</color>
+
+    <!-- =============================== -->
+    <!--        SHADOW / GLOW            -->
+    <!-- =============================== -->
+    <color name="shadow_dark">#66000000</color>
+    <color name="shadow_light">#33000000</color>
+    <color name="glow_amber">#40FFB74D</color>
+    <color name="glow_blue">#407986CB</color>
+
+    <!-- =============================== -->
+    <!--        PROGRESS BAR             -->
+    <!-- =============================== -->
+    <color name="progress_bg">#1AFFFFFF</color>
+    <color name="progress_fill">#FFB74D</color>
+    <color name="progress_secondary">#7986CB</color>
+
+    <!-- =============================== -->
+    <!--        NAVIGATION               -->
+    <!-- =============================== -->
+    <color name="nav_bg">#CC1A1B2E</color>
+    <color name="nav_selected">#FFB74D</color>
+    <color name="nav_unselected">#78909C</color>
+    <color name="nav_indicator">#26FFB74D</color>
+    <color name="nav_divider">#33FFFFFF</color>
+
+</resources>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- =========================================== -->
+    <!-- HARDWARE FEATURES                           -->
+    <!-- =========================================== -->
+
+    <!-- OpenGL ES 3.0 for better rendering -->
+    <uses-feature
+        android:glEsVersion="0x00030000"
+        android:required="false" />
+
+    <!-- OpenGL ES 2.0 fallback -->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.type.pc"
+        android:required="false" />
+
+    <!-- ✅ BOOST: Gamepad / Controller support -->
+    <uses-feature
+        android:name="android.hardware.gamepad"
+        android:required="false" />
+
+    <!-- =========================================== -->
+    <!-- PERMISSIONS                                 -->
+    <!-- =========================================== -->
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <uses-permission
+        android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS"
+        tools:ignore="HighSamplingRate" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- ✅ BOOST: Wake lock - screen off pe game chal sake -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- ✅ BOOST: CPU performance hint API (Android 12+) -->
+    <uses-permission
+        android:name="android.permission.PERFORMANCE_HINT_SESSION"
+        tools:ignore="ProtectedPermissions" />
+
+    <!-- =========================================== -->
+    <!-- APPLICATION                                 -->
+    <!-- =========================================== -->
+
+    <application
+        android:name=".FCLApplication"
+        android:allowBackup="true"
+        android:allowNativeHeapPointerTagging="false"
+        android:appCategory="game"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:hasFragileUserData="true"
+        android:icon="@mipmap/ic_launcher"
+        android:isGame="true"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FoldCraftLauncher"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
+        android:preserveLegacyExternalStorage="true"
+        android:requestLegacyExternalStorage="true"
+
+        android:largeHeap="true"
+        android:hardwareAccelerated="true"
+        android:extractNativeLibs="true"
+
+        tools:ignore="DiscouragedApi"
+        tools:targetApi="33">
+
+        <!-- =========================================== -->
+        <!-- SPLASH ACTIVITY - Entry Point               -->
+        <!-- =========================================== -->
+        <activity
+            android:name=".activity.SplashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
+            android:exported="true"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/Theme.Splash"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustNothing">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <!-- =========================================== -->
+        <!-- IMPORT ACTIVITY ALIAS                       -->
+        <!-- =========================================== -->
+        <activity-alias
+            android:name=".ImportActivity"
+            android:exported="true"
+            android:label="@string/app_name_import"
+            android:targetActivity=".activity.SplashActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:mimeType="application/zip" />
+                <data android:mimeType="application/x-zip-compressed" />
+                <data android:mimeType="application/x-7z-compressed" />
+                <data android:mimeType="application/octet-stream" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:host="*" />
+                <data android:pathPattern=".*\\.zip" />
+                <data android:pathPattern=".*\\.mrpack" />
+                <data android:pathPattern=".*\\.7z" />
+            </intent-filter>
+
+        </activity-alias>
+
+        <!-- =========================================== -->
+        <!-- MAIN ACTIVITY - Launcher UI                 -->
+        <!-- =========================================== -->
+        <activity
+            android:name=".activity.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
+            android:screenOrientation="sensorLandscape"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustNothing"
+            android:launchMode="singleTop" />
+
+        <!-- =========================================== -->
+        <!-- JVM ACTIVITY - Game Running                 -->
+        <!-- =========================================== -->
+        <activity
+            android:name=".activity.JVMActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation|density"
+            android:screenOrientation="sensorLandscape"
+            android:hardwareAccelerated="true"
+            android:alwaysRetainTaskState="true"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustNothing"
+            android:resizeableActivity="false"
+            android:excludeFromRecents="false"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true" />
+
+        <!-- =========================================== -->
+        <!-- WEB ACTIVITY                                -->
+        <!-- =========================================== -->
+        <activity
+            android:name=".activity.WebActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
+            android:screenOrientation="sensorLandscape"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- =========================================== -->
+        <!-- CONTROLLER ACTIVITY                         -->
+        <!-- =========================================== -->
+        <activity
+            android:name=".activity.ControllerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
+            android:screenOrientation="sensorLandscape"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustNothing" />
+
+        <!-- =========================================== -->
+        <!-- SHELL ACTIVITY                              -->
+        <!-- =========================================== -->
+        <activity
+            android:name=".activity.ShellActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize"
+            android:hardwareAccelerated="true"
+            tools:ignore="LockedOrientationActivity" />
+
+        <!-- =========================================== -->
+        <!-- JVM CRASH ACTIVITY                          -->
+        <!-- =========================================== -->
+        <activity
+            android:name=".activity.JVMCrashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
+            android:process=":crash"
+            android:screenOrientation="sensor"
+            android:hardwareAccelerated="true" />
+
+        <!-- =========================================== -->
+        <!-- FILE BROWSER ACTIVITY                       -->
+        <!-- =========================================== -->
+        <activity
+            android:name="com.tungsten.fcllibrary.browser.FileBrowserActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
+            android:screenOrientation="sensorLandscape"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustNothing" />
+
+        <!-- =========================================== -->
+        <!-- CRASH REPORT ACTIVITY                       -->
+        <!-- =========================================== -->
+        <activity
+            android:name="com.tungsten.fcllibrary.crash.CrashReportActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
+            android:screenOrientation="sensor"
+            android:hardwareAccelerated="true" />
+
+        <!-- =========================================== -->
+        <!-- SERVICES                                    -->
+        <!-- =========================================== -->
+
+        <service
+            android:name="com.tungsten.fclcore.download.ProcessService"
+            android:enabled="true"
+            android:foregroundServiceType="dataSync"
+            android:process=":processService" />
+
+        <service
+            android:name=".terracotta.TerracottaVPNService"
+            android:permission="android.permission.BIND_VPN_SERVICE"
+            android:exported="true"
+            android:foregroundServiceType="connectedDevice|dataSync"
+            tools:ignore="VpnServicePolicy">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+        </service>
+
+        <!-- =========================================== -->
+        <!-- PROVIDERS                                   -->
+        <!-- =========================================== -->
+
+        <provider
+            android:name=".scoped.FolderProvider"
+            android:authorities="${applicationId}.document.provider"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+    </application>
+
+    <!-- =========================================== -->
+    <!-- QUERIES                                     -->
+    <!-- =========================================== -->
+    <queries>
+        <package android:name="net.kdt.pojavlaunch.ffmpeg" />
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+        </intent>
+    </queries>
+
+</manifest>

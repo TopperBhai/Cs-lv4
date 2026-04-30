@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    
+    <style name="Theme.FoldCraftLauncher" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#FFB74D</item>
+        <item name="colorPrimaryVariant">#F57C00</item>
+        <item name="colorOnPrimary">#1A1B2E</item>
+        <item name="colorSecondary">#FFB74D</item>
+        <item name="colorSecondaryVariant">#F57C00</item>
+        <item name="colorOnSecondary">#1A1B2E</item>
+        
+        <item name="android:colorBackground">#1A1B2E</item>
+        <item name="colorSurface">#F21A1B2E</item>
+        <item name="android:statusBarColor">#1A1B2E</item>
+
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+
+        <item name="alertDialogTheme">@style/DarkDialogTheme</item>
+        <item name="materialAlertDialogTheme">@style/DarkDialogTheme</item>
+        <item name="android:alertDialogTheme">@style/DarkDialogTheme</item>
+    </style>
+
+    <style name="DarkDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:background">#1A1B2E</item>
+        <item name="android:windowBackground">#1A1B2E</item>
+        <item name="colorSurface">#1A1B2E</item>
+        
+        <item name="android:textColorPrimary">#FFB74D</item>
+        <item name="android:textColorSecondary">#E8EAF6</item>
+        <item name="colorOnSurface">#E8EAF6</item>
+        
+        <item name="colorPrimary">#FFB74D</item>
+        <item name="colorAccent">#FFB74D</item>
+    </style>
+
+    <style name="Theme.Splash" parent="@style/Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/Theme.FoldCraftLauncher</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>
+        <item name="windowSplashScreenAnimationDuration">200</item>
+        <item name="windowSplashScreenBackground">#1A1B2E</item>
+    </style>
+
+    <style name="TabTextAppearance">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="singleLine">true</item>
+        <item name="android:textColor">#E8EAF6</item>
+    </style>
+
+    <style name="NavIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">#FFB74D</item>
+    </style>
+
+    <style name="LeftMenuShape">
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeBottomRight">20dp</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+</resources>

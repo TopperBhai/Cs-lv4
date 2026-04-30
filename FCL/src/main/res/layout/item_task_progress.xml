@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="8dp">
+
+    <com.tungsten.fcllibrary.component.view.FCLTextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="#E8EAF6" 
+        android:textSize="11sp"
+        app:layout_constraintTop_toTopOf="parent" /> <com.tungsten.fcllibrary.component.view.FCLProgressBar
+        android:id="@+id/progress"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:indeterminateDrawable="@drawable/bg_progress_indeterminate"
+        android:max="1000"
+        android:progressTint="#FFB74D" 
+        app:layout_constraintTop_toBottomOf="@+id/name" /> <com.tungsten.fcllibrary.component.view.FCLTextView
+        android:id="@+id/state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="#FFB74D" 
+        android:textSize="11sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/progress" /> </androidx.constraintlayout.widget.ConstraintLayout>

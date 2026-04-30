@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/cs_bg">
+
+    <!-- Dark Overlay -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#881A1B2E"
+        android:importantForAccessibility="no" />
+
+    <!-- ======================================= -->
+    <!-- MAIN LOGIN CARD                         -->
+    <!-- ======================================= -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/login_card"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#F21A1B2E"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#44FFB74D"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="28dp"
+            android:paddingTop="32dp"
+            android:paddingBottom="28dp">
+
+            <!-- ===== LOGO / HEADER ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!-- CS Logo Icon -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    app:cardBackgroundColor="#1AFFB74D"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#33FFB74D"
+                    app:strokeWidth="2dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="sans-serif-black"
+                        android:gravity="center"
+                        android:text="CS"
+                        android:textColor="#FFB74D"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Title -->
+                <com.tungsten.fcllibrary.component.view.FCLTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:letterSpacing="0.15"
+                    android:text="CS LAUNCHER"
+                    android:textColor="#E8EAF6"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!-- Subtitle -->
+                <com.tungsten.fcllibrary.component.view.FCLTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Sign in to your account"
+                    android:textColor="#5C6BC0"
+                    android:textSize="12sp" />
+
+                <!-- Amber Divider -->
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#FFB74D" />
+
+            </LinearLayout>
+
+            <!-- ===== INPUT FIELDS ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:orientation="vertical">
+
+                <!-- Username Field -->
+                <com.tungsten.fcllibrary.component.view.FCLTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:text="USERNAME"
+                    android:textColor="#78909C"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    app:cardBackgroundColor="#1AFFFFFF"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#1AFFFFFF"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="14dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_baseline_settings_24"
+                            android:tint="#78909C"
+                            android:importantForAccessibility="no" />
+
+                        <EditText
+                            android:id="@+id/auth_username"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:hint="Enter username"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="#E8EAF6"
+                            android:textColorHint="#4D78909C"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Email Field -->
+                <com.tungsten.fcllibrary.component.view.FCLTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="EMAIL"
+                    android:textColor="#78909C"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    app:cardBackgroundColor="#1AFFFFFF"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#1AFFFFFF"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="14dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_baseline_cloud_download_24"
+                            android:tint="#78909C"
+                            android:importantForAccessibility="no" />
+
+                        <EditText
+                            android:id="@+id/auth_email"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:hint="Enter email address"
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="#E8EAF6"
+                            android:textColorHint="#4D78909C"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Password Field -->
+                <com.tungsten.fcllibrary.component.view.FCLTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="PASSWORD"
+                    android:textColor="#78909C"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    app:cardBackgroundColor="#1AFFFFFF"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#1AFFFFFF"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="14dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_baseline_arrow_back_24"
+                            android:tint="#78909C"
+                            android:importantForAccessibility="no" />
+
+                        <EditText
+                            android:id="@+id/auth_password"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:hint="Enter password"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="#E8EAF6"
+                            android:textColorHint="#4D78909C"
+                            android:textSize="14sp" />
+
+                        <!-- Show/Hide Password Toggle -->
+                        <ImageView
+                            android:id="@+id/toggle_password"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_baseline_settings_24"
+                            android:tint="#78909C"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:importantForAccessibility="no" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <!-- ===== ERROR MESSAGE ===== -->
+            <com.tungsten.fcllibrary.component.view.FCLTextView
+                android:id="@+id/error_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:textColor="#EF5350"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <!-- ===== LOGIN BUTTON ===== -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="24dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="#FFB74D"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@android:color/transparent"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:letterSpacing="0.2"
+                    android:text="▶  LOGIN"
+                    android:textColor="#1A1B2E"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="16dp"
+                    app:rippleColor="#33000000" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ===== DIVIDER WITH OR ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="#15FFFFFF" />
+
+                <com.tungsten.fcllibrary.component.view.FCLTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:text="OR"
+                    android:textColor="#4D78909C"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="#15FFFFFF" />
+
+            </LinearLayout>
+
+            <!-- ===== REGISTER BUTTON ===== -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_register"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:letterSpacing="0.05"
+                android:text="Create New Account"
+                android:textColor="#9FA8DA"
+                android:textSize="13sp"
+                app:cornerRadius="14dp"
+                app:rippleColor="#155C6BC0"
+                app:strokeColor="#225C6BC0"
+                app:strokeWidth="1dp" />
+
+            <!-- ===== FORGOT PASSWORD ===== -->
+            <com.tungsten.fcllibrary.component.view.FCLTextView
+                android:id="@+id/btn_forgot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="Forgot Password?"
+                android:textColor="#4D78909C"
+                android:textSize="12sp" />
+
+            <!-- ===== VERSION TAG ===== -->
+            <com.tungsten.fcllibrary.component.view.FCLTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="CS Launcher BETA"
+                android:textColor="#225C6BC0"
+                android:textSize="10sp"
+                android:letterSpacing="0.1" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

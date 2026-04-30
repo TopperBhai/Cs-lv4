@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#1A1B2E"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F21A1B2E"
+                android:orientation="vertical"
+                android:padding="4dp">
+
+                <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/world_name"
+                        android:textColor="#FFB74D"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#E8EAF6"/>
+                </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#22FFFFFF"/>
+
+                <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/world_info_random_seed"
+                        android:textColor="#FFB74D"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:id="@+id/seed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#E8EAF6"/>
+                </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#22FFFFFF"/>
+
+                <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/world_info_last_played"
+                        android:textColor="#FFB74D"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:id="@+id/last_played"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#E8EAF6"/>
+                </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#22FFFFFF"/>
+
+                <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/world_info_time"
+                        android:textColor="#FFB74D"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#E8EAF6"/>
+                </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#22FFFFFF"/>
+
+                <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/world_info_allow_cheats"
+                        android:textColor="#FFB74D"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <com.tungsten.fcllibrary.component.view.FCLSwitch
+                        android:id="@+id/allow_cheat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#22FFFFFF"/>
+
+                <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/world_info_generate_features"
+                        android:textColor="#FFB74D"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <com.tungsten.fcllibrary.component.view.FCLSwitch
+                        android:id="@+id/generate_structures"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#22FFFFFF"/>
+
+                <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/world_info_difficulty"
+                        android:textColor="#FFB74D"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <com.tungsten.fcllibrary.component.view.FCLSpinner
+                        android:id="@+id/difficulty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+            </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+            <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                android:id="@+id/player_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#F21A1B2E"
+                android:orientation="vertical"
+                android:padding="4dp">
+
+                <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/world_info_player_location"
+                        android:textColor="#FFB74D"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:id="@+id/location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#E8EAF6"/>
+                </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#22FFFFFF"/>
+
+                <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/world_info_player_last_death_location"
+                        android:textColor="#FFB74D"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:id="@+id/last_death"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#E8EAF6"/>
+                </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#22FFFFFF"/>
+
+                <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/world_info_player_spawn"
+                        android:textColor="#FFB74D"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:id="@+id/spawn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#E8EAF6"/>
+                </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#22FFFFFF"/>
+
+                <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/world_info_player_game_type"
+                        android:textColor="#FFB74D"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <com.tungsten.fcllibrary.component.view.FCLSpinner
+                        android:id="@+id/game_mode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#22FFFFFF"/>
+
+                <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/world_info_player_health"
+                        android:textColor="#FFB74D"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <com.tungsten.fcllibrary.component.view.FCLEditText
+                        android:id="@+id/health"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#E8EAF6"
+                        android:textSize="14sp"/>
+                </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+                <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/world_info_player_food_level"
+                        android:textColor="#FFB74D"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <com.tungsten.fcllibrary.component.view.FCLEditText
+                        android:id="@+id/food_level"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#E8EAF6"
+                        android:textSize="14sp"/>
+                </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+                <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.tungsten.fcllibrary.component.view.FCLTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/world_info_player_xp_level"
+                        android:textColor="#FFB74D"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <com.tungsten.fcllibrary.component.view.FCLEditText
+                        android:id="@+id/xp_level"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#E8EAF6"
+                        android:textSize="14sp"/>
+                </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+            </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

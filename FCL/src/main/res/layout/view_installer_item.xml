@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="6dp"
+    android:paddingVertical="4dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="#24253A"
+        app:strokeColor="#22FFFFFF"
+        app:strokeWidth="1dp">
+
+        <!-- CRASH FIX: LinearLayout → FCLLinearLayout -->
+        <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+            android:id="@+id/item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:gravity="center_vertical">
+
+            <!-- ICON -->
+            <com.tungsten.fcllibrary.component.view.FCLImageView
+                android:id="@+id/icon"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_icon_circle"
+                android:padding="6dp" />
+
+            <!-- TEXT SECTION -->
+            <!-- CRASH FIX: LinearLayout → FCLLinearLayout -->
+            <com.tungsten.fcllibrary.component.view.FCLLinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.tungsten.fcllibrary.component.view.FCLTextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#E8EAF6" />
+
+                <com.tungsten.fcllibrary.component.view.FCLTextView
+                    android:id="@+id/state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="#78909C"
+                    android:layout_marginTop="2dp" />
+
+            </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+            <!-- REMOVE BUTTON -->
+            <com.tungsten.fcllibrary.component.view.FCLImageButton
+                android:id="@+id/remove"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_nav_item"
+                android:padding="6dp"
+                android:src="@drawable/ic_baseline_close_24"
+                android:tint="#EF5350"
+                android:layout_marginEnd="6dp" />
+
+            <!-- SELECT BUTTON -->
+            <com.tungsten.fcllibrary.component.view.FCLImageButton
+                android:id="@+id/select"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_nav_item"
+                android:padding="6dp"
+                android:src="@drawable/ic_baseline_arrow_forward_24"
+                android:tint="#FFB74D" />
+
+        </com.tungsten.fcllibrary.component.view.FCLLinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
