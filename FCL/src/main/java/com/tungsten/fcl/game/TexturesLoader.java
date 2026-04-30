@@ -127,6 +127,36 @@ public class TexturesLoader {
         }
     }
 
+    /**
+     * Convert a full skin into a square avatar bitmap.
+     * Uses the face layer from a standard Minecraft skin when possible.
+     */
+    @Nullable
+    public static Bitmap toAvatar(@Nullable Bitmap skin, int size) {
+        if (skin == null || size <= 0) {
+            return null;
+        }
+
+        try {
+            int faceSize = Math.max(8, skin.getWidth() / 8);
+            int faceX = Math.min(Math.max(8, skin.getWidth() / 8), Math.max(0, skin.getWidth() - faceSize));
+            int faceY = Math.min(Math.max(8, skin.getHeight() / 8), Math.max(0, skin.getHeight() - faceSize));
+
+            Bitmap face = Bitmap.createBitmap(skin, faceX, faceY, faceSize, faceSize);
+            Bitmap avatar = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(avatar);
+            Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG | Paint.ANTI_ALIAS_FLAG);
+            canvas.drawBitmap(face, null, new android.graphics.Rect(0, 0, size, size), paint);
+            if (face != skin) {
+                face.recycle();
+            }
+            return avatar;
+        } catch (Exception e) {
+            Log.w(TAG, "Failed to create avatar bitmap", e);
+            return null;
+        }
+    }
+
     // =========================================================
     // ✅ 2. AVATAR CROP
     // =========================================================
