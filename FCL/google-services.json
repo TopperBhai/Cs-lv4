@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "688014938134",
+    "firebase_url": "https://cs-launcher-32a76-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "cs-launcher-32a76",
+    "storage_bucket": "cs-launcher-32a76.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688014938134:android:05c80889bde8e9a3b5a537",
+        "android_client_info": {
+          "package_name": "com.tungsten.fcl"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB84vvmnX0pRW-7CGTogJpWmzlsVJ-85LE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
