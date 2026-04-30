@@ -427,52 +427,33 @@ class MainActivity : FCLActivity(), OnSelectListener, View.OnClickListener {
     fun setupLiveBackground() { if (shouldPlayVideo()) { binding.videoView.visibility = View.VISIBLE; binding.videoView.setVideoPath(FCLPath.LIVE_BACKGROUND_PATH); binding.videoView.setOnPreparedListener { mediaPlayer = it; it.isLooping = true; setLiveBackgroundVolume(); binding.videoView.start() }; binding.videoView.setOnCompletionListener { binding.videoView.seekTo(0); binding.videoView.start() }; binding.videoView.setOnErrorListener { _, _, _ -> mediaPlayer = null; true } } else { mediaPlayer = null; binding.videoView.visibility = View.GONE; binding.videoView.stopPlayback() } }
     fun setLiveBackgroundVolume() { mediaPlayer?.let { val volume = sharedPreferences.getInt("videoBackgroundVolume", 100) / 100f; it.setVolume(volume, volume) } }
 
-    // ✅ Multi-Theme Background Switcher: 4 animated GIF options + performance fallback
+    // 3-mode background switcher: static default, image, GIF
     fun setupAnimatedBackground() {
-        val theme = sharedPreferences.getString("selected_bg_theme", "theme1") ?: "theme1"
+        val mode = sharedPreferences.getString("launcher_bg_mode", "0") ?: "0"
         val imageView = binding.bgImage
-        
+
         try {
-            when (theme) {
-                "theme1" -> {
-                    // Neon Pulse (Default)
-                    Glide.with(this)
-                        .asGif()
-                        .load("https://i.ibb.co/tTwCBF30/200-1.gif")
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(imageView)
-                }
-                "theme2" -> {
-                    // Cyber Glitch
-                    Glide.with(this)
-                        .asGif()
-                        .load("https://i.ibb.co/HT3kWF14/SDR7l.gif")
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(imageView)
-                }
-                "theme3" -> {
-                    // Retro Grid
-                    Glide.with(this)
-                        .asGif()
-                        .load("https://i.ibb.co/nqsFsG1R/giphy-1.gif")
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(imageView)
-                }
-                "theme4" -> {
-                    // Static Dark (Performance Mode)
-                    Glide.with(this).clear(imageView)
-                    imageView.setImageResource(R.drawable.cs_bg)
-                }
-                else -> {
-                    // Fallback to theme1
-                    Glide.with(this)
-                        .asGif()
-                        .load("https://i.ibb.co/tTwCBF30/200-1.gif")
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(imageView)
-                }
+            when (mode) {
+                "0" -> Glide.with(this)
+                    .load("https://i.ibb.co/MxjthLZ1/file-00000000045871fab4d75aeb67187ce8.png")
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imageView)
+                "1" -> Glide.with(this)
+                    .load("https://i.ibb.co/RZJ908v/thumb-1920-1154114.png")
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imageView)
+                "2" -> Glide.with(this)
+                    .asGif()
+                    .load("https://i.ibb.co/tTwCBF30/200-1.gif")
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imageView)
+                else -> Glide.with(this)
+                    .load("https://i.ibb.co/MxjthLZ1/file-00000000045871fab4d75aeb67187ce8.png")
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imageView)
             }
         } catch (e: Exception) {
+            Glide.with(this).clear(imageView)
             imageView.setImageResource(R.drawable.cs_bg)
         }
     }

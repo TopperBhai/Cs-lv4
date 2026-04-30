@@ -2,8 +2,8 @@ package com.tungsten.fcl.setting;
 
 import static com.tungsten.fcl.util.FXUtils.onInvalidating;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.view.ContextThemeWrapper;
 
 import androidx.annotation.NonNull;
 
@@ -43,8 +43,6 @@ import com.tungsten.fclcore.util.ToStringBuilder;
 import com.tungsten.fclcore.util.fakefx.ObservableHelper;
 import com.tungsten.fclcore.util.gson.fakefx.factories.JavaFxPropertyTypeAdapterFactory;
 import com.tungsten.fclcore.util.io.FileUtils;
-import com.tungsten.fcllibrary.component.dialog.FCLAlertDialog;
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -331,24 +329,22 @@ public class Controller implements Cloneable, Observable {
 
     public static void showUpgradeDialog(Context context, String name, String id) {
         Schedulers.androidUIThread().execute(() -> {
-            FCLAlertDialog.Builder builder = new FCLAlertDialog.Builder(context);  // Reverted: use app's native theme instead of ContextThemeWrapper hack
-            builder.setCancelable(false);
-            builder.setAlertLevel(FCLAlertDialog.AlertLevel.INFO);
-            builder.setMessage(String.format(context.getString(R.string.control_upgrade), name));
-            builder.setPositiveButton(() -> Controllers.findControllerById(id).upgrade());
-            builder.setNegativeButton(null);
-            builder.create().show();
+            new AlertDialog.Builder(context)
+                    .setCancelable(false)
+                    .setMessage(String.format(context.getString(R.string.control_upgrade), name))
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> Controllers.findControllerById(id).upgrade())
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show();
         });
     }
 
     public static void showIncompatibleDialog(Context context, String name) {
         Schedulers.androidUIThread().execute(() -> {
-            FCLAlertDialog.Builder builder = new FCLAlertDialog.Builder(new ContextThemeWrapper(context, androidx.appcompat.R.style.Theme_AppCompat_DayNight_Dialog_Alert));
-            builder.setCancelable(false);
-            builder.setAlertLevel(FCLAlertDialog.AlertLevel.ALERT);
-            builder.setMessage(String.format(context.getString(R.string.control_incompatible), name));
-            builder.setNegativeButton(null);
-            builder.create().show();
+            new AlertDialog.Builder(context)
+                    .setCancelable(false)
+                    .setMessage(String.format(context.getString(R.string.control_incompatible), name))
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show();
         });
     }
 

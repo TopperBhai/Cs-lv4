@@ -227,13 +227,12 @@ public class LauncherSettingPage extends FCLCommonPage implements View.OnClickLi
         closeSkinModel.setChecked(ThemeEngine.getInstance().getTheme().isCloseSkinModel());
         closeSkinModel.setOnCheckedChangeListener(this);
 
-        // ✅ Multi-Theme Background Switcher (4 options)
+        // 3-mode background switcher
         backgroundThemeSpinner = findViewById(R.id.background_theme_spinner);
         ArrayList<String> themeOptions = new ArrayList<>();
-        themeOptions.add(getContext().getString(R.string.bg_theme_neon_pulse));
-        themeOptions.add(getContext().getString(R.string.bg_theme_cyber_glitch));
-        themeOptions.add(getContext().getString(R.string.bg_theme_retro_grid));
-        themeOptions.add(getContext().getString(R.string.bg_theme_static_dark));
+        themeOptions.add(getContext().getString(R.string.bg_mode_default_static));
+        themeOptions.add(getContext().getString(R.string.bg_mode_enderman_eyes));
+        themeOptions.add(getContext().getString(R.string.bg_mode_live_neon));
         
         ArrayAdapter<String> themeAdapter = new ArrayAdapter<>(
             getContext(),
@@ -243,9 +242,9 @@ public class LauncherSettingPage extends FCLCommonPage implements View.OnClickLi
         themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         backgroundThemeSpinner.setAdapter(themeAdapter);
         
-        // Get current selection from SharedPreferences (default "theme1")
-        String currentTheme = sharedPreferences.getString("selected_bg_theme", "theme1");
-        int selectedIndex = themeToIndex(currentTheme);
+        // Get current selection from SharedPreferences (default "0")
+        String currentTheme = sharedPreferences.getString("launcher_bg_mode", "0");
+        int selectedIndex = modeToIndex(currentTheme);
         backgroundThemeSpinner.setSelection(selectedIndex, false);
         
         // Set listener for theme changes
@@ -666,9 +665,8 @@ public class LauncherSettingPage extends FCLCommonPage implements View.OnClickLi
             }
             AppCompatDelegate.setDefaultNightMode(mode);
         } else if (parent == backgroundThemeSpinner) {
-            // ✅ Update background theme preference
-            String theme = indexToTheme(position);
-            sharedPreferences.edit().putString("selected_bg_theme", theme).apply();
+            String mode = indexToMode(position);
+            sharedPreferences.edit().putString("launcher_bg_mode", mode).apply();
             try {
                 MainActivity.getInstance().setupAnimatedBackground();
             } catch (Exception ignored) {
@@ -715,32 +713,28 @@ public class LauncherSettingPage extends FCLCommonPage implements View.OnClickLi
 
     }
 
-    // ✅ Helper methods for theme spinner mapping
-    private String indexToTheme(int index) {
+    // Helper methods for background mode mapping
+    private String indexToMode(int index) {
         switch (index) {
             case 0:
-                return "theme1"; // Neon Pulse
+                return "0"; // CS Default Theme
             case 1:
-                return "theme2"; // Cyber Glitch
+                return "1"; // Enderman Eyes
             case 2:
-                return "theme3"; // Retro Grid
-            case 3:
-                return "theme4"; // Static Dark
+                return "2"; // Live Neon (GIF)
             default:
-                return "theme1";
+                return "0";
         }
     }
 
-    private int themeToIndex(String theme) {
-        switch (theme) {
-            case "theme1":
-                return 0; // Neon Pulse
-            case "theme2":
-                return 1; // Cyber Glitch
-            case "theme3":
-                return 2; // Retro Grid
-            case "theme4":
-                return 3; // Static Dark
+    private int modeToIndex(String mode) {
+        switch (mode) {
+            case "0":
+                return 0; // CS Default Theme
+            case "1":
+                return 1; // Enderman Eyes
+            case "2":
+                return 2; // Live Neon (GIF)
             default:
                 return 0;
         }
