@@ -340,18 +340,18 @@ public class LauncherSettingPage extends FCLCommonPage implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if (v == checkUpdate && !UpdateChecker.getInstance().isChecking()) {
-            UpdateChecker.getInstance().checkManually(getContext()).whenComplete(Schedulers.androidUIThread(), e -> {
-                if (e != null) {
-                    FCLAlertDialog.Builder builder = new FCLAlertDialog.Builder(getContext());
-                    builder.setCancelable(false);
-                    builder.setAlertLevel(FCLAlertDialog.AlertLevel.ALERT);
-                    builder.setMessage(getContext().getString(R.string.update_check_failed) + "\n" + e);
-                    builder.setNegativeButton(getContext().getString(com.tungsten.fcllibrary.R.string.dialog_positive), null);
-                    builder.create().show();
-                }
-            }).start();
-        }
+        // if (v == checkUpdate && !UpdateChecker.getInstance().isChecking()) {  // Legacy update check removed - will be replaced with Firebase
+        //     UpdateChecker.getInstance().checkManually(getContext()).whenComplete(Schedulers.androidUIThread(), e -> {
+        //         if (e != null) {
+        //             FCLAlertDialog.Builder builder = new FCLAlertDialog.Builder(getContext());
+        //             builder.setCancelable(false);
+        //             builder.setAlertLevel(FCLAlertDialog.AlertLevel.ALERT);
+        //             builder.setMessage(getContext().getString(R.string.update_check_failed) + "\n" + e);
+        //             builder.setNegativeButton(getContext().getString(com.tungsten.fcllibrary.R.string.dialog_positive), null);
+        //             builder.create().show();
+        //         }
+        //     }).start();
+        // }
         if (v == clearCache) {
             FileUtils.cleanDirectoryQuietly(new File(FCLPath.CACHE_DIR).getParentFile());
         }
