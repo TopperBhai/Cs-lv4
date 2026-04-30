@@ -101,7 +101,7 @@ public class LauncherSettingPage extends FCLCommonPage implements View.OnClickLi
     private FCLButton resetMenuIcon;
     private FCLSwitch ignoreNotch;
     private FCLSwitch closeSkinModel;
-    private FCLSwitch animatedBackgroundSwitch;
+    private FCLSpinner<String> backgroundThemeSpinner;
     private FCLNumberSeekBar videoBackgroundVolume;
     private FCLNumberSeekBar animationSpeed;
     private FCLNumberSeekBar vibrationDuration;
@@ -227,16 +227,29 @@ public class LauncherSettingPage extends FCLCommonPage implements View.OnClickLi
         closeSkinModel.setChecked(ThemeEngine.getInstance().getTheme().isCloseSkinModel());
         closeSkinModel.setOnCheckedChangeListener(this);
 
-        // Animated background toggle (default true)
-        animatedBackgroundSwitch = findViewById(R.id.animated_background_switch);
-        animatedBackgroundSwitch.setChecked(sharedPreferences.getBoolean("isAnimatedBgEnabled", true));
-        animatedBackgroundSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            sharedPreferences.edit().putBoolean("isAnimatedBgEnabled", isChecked).apply();
-            try {
-                MainActivity.getInstance().setupAnimatedBackground();
-            } catch (Exception ignored) {
-            }
-        });
+        // ✅ Multi-Theme Background Switcher (4 options)
+        backgroundThemeSpinner = findViewById(R.id.background_theme_spinner);
+        ArrayList<String> themeOptions = new ArrayList<>();
+        themeOptions.add(getContext().getString(R.string.bg_theme_neon_pulse));
+        themeOptions.add(getContext().getString(R.string.bg_theme_cyber_glitch));
+        themeOptions.add(getContext().getString(R.string.bg_theme_retro_grid));
+        themeOptions.add(getContext().getString(R.string.bg_theme_static_dark));
+        
+        ArrayAdapter<String> themeAdapter = new ArrayAdapter<>(
+            getContext(),
+            android.R.layout.simple_spinner_item,
+            themeOptions
+        );
+        themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        backgroundThemeSpinner.setAdapter(themeAdapter);
+        
+        // Get current selection from SharedPreferences (default "theme1")
+        String currentTheme = sharedPreferences.getString("selected_bg_theme", "theme1");
+        int selectedIndex = themeToIndex(currentTheme);
+        backgroundThemeSpinner.setSelection(selectedIndex, false);
+        
+        // Set listener for theme changes
+        backgroundThemeSpinner.setOnItemSelectedListener(this);
 
         videoBackgroundVolume.setProgress(sharedPreferences.getInt("videoBackgroundVolume", 100));
         videoBackgroundVolume.setOnSeekBarChangeListener(this);
@@ -652,6 +665,14 @@ public class LauncherSettingPage extends FCLCommonPage implements View.OnClickLi
                 mode = position == 1 ? AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES;
             }
             AppCompatDelegate.setDefaultNightMode(mode);
+        } else if (parent == backgroundThemeSpinner) {
+            // ✅ Update background theme preference
+            String theme = indexToTheme(position);
+            sharedPreferences.edit().putString("selected_bg_theme", theme).apply();
+            try {
+                MainActivity.getInstance().setupAnimatedBackground();
+            } catch (Exception ignored) {
+            }
         }
     }
 
@@ -692,5 +713,36 @@ public class LauncherSettingPage extends FCLCommonPage implements View.OnClickLi
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
+    }
+
+    // ✅ Helper methods for theme spinner mapping
+    private String indexToTheme(int index) {
+        switch (index) {
+            case 0:
+                return "theme1"; // Neon Pulse
+            case 1:
+                return "theme2"; // Cyber Glitch
+            case 2:
+                return "theme3"; // Retro Grid
+            case 3:
+                return "theme4"; // Static Dark
+            default:
+                return "theme1";
+        }
+    }
+
+    private int themeToIndex(String theme) {
+        switch (theme) {
+            case "theme1":
+                return 0; // Neon Pulse
+            case "theme2":
+                return 1; // Cyber Glitch
+            case "theme3":
+                return 2; // Retro Grid
+            case "theme4":
+                return 3; // Static Dark
+            default:
+                return 0;
+        }
     }
 }

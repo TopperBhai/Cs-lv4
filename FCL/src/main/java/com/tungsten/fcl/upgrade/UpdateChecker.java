@@ -19,9 +19,7 @@ import java.util.ArrayList;
 
 public class UpdateChecker {
 
-    public static final String UPDATE_CHECK_URL = "https://raw.githubusercontent.com/FCL-Team/FoldCraftLauncher/main/version_map.json";
-    public static final String UPDATE_CHECK_URL_CN = "https://gitee.com/fcl-team/FCL-Repo/raw/main/res/version_map.json";
-
+    // ✅ Legacy update URLs removed. Firebase implementation pending.
     private static UpdateChecker instance;
 
     public static UpdateChecker getInstance() {
@@ -38,39 +36,20 @@ public class UpdateChecker {
     }
 
     public UpdateChecker() {
-
     }
 
-    public Task<?> checkManually(Context context) {
-        return check(context, true, true);
-    }
-
-    public Task<?> checkAuto(Context context) {
-        return check(context, false, false);
-    }
-
-    public Task<?> check(Context context, boolean showBeta, boolean showAlert) {
+    // ✅ TODO: Implement Firebase Realtime Database/Firestore update check here
+    public Task<?> checkForFirebaseUpdate(Context context, boolean showAlert) {
         return Task.runAsync(() -> {
             isChecking = true;
             if (showAlert) {
-                Schedulers.androidUIThread().execute(() -> Toast.makeText(context, context.getString(R.string.update_checking), Toast.LENGTH_SHORT).show());
+                Schedulers.androidUIThread().execute(() ->
+                    Toast.makeText(context, "Update check (Firebase) coming soon", Toast.LENGTH_SHORT).show()
+                );
             }
-            String res = NetworkUtils.doGet(NetworkUtils.toURL(LocaleUtils.isChinese(context) ? UPDATE_CHECK_URL_CN : UPDATE_CHECK_URL));
-            ArrayList<RemoteVersion> versions = JsonUtils.GSON.fromJson(res, new TypeToken<ArrayList<RemoteVersion>>(){}.getType());
-            for (RemoteVersion version : versions) {
-                if (version.getVersionCode() > getCurrentVersionCode(context)) {
-                    if (showBeta || !version.isBeta()) {
-                        if (showBeta || !isIgnore(context, version.getVersionCode())) {
-                            showUpdateDialog(context, version);
-                        }
-                        isChecking = false;
-                        return;
-                    }
-                }
-            }
-            if (showAlert) {
-                Schedulers.androidUIThread().execute(() -> Toast.makeText(context, context.getString(R.string.update_not_exist), Toast.LENGTH_SHORT).show());
-            }
+            // TODO: Query Firebase Realtime DB or Firestore for latest version
+            // - Compare with getCurrentVersionCode(context)
+            // - If update available, call showUpdateDialog(context, version)
             isChecking = false;
         });
     }

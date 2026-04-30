@@ -645,7 +645,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:singleLine="true"
-                        android:text="@string/settings_launcher_animated_bg"
+                        android:text="@string/settings_launcher_bg_theme"
                         android:textColor="#FFB74D" />
 
                     <View
@@ -653,8 +653,8 @@
                         android:layout_height="0dp"
                         android:layout_weight="1" />
 
-                    <com.tungsten.fcllibrary.component.view.FCLSwitch
-                        android:id="@+id/animated_background_switch"
+                    <com.tungsten.fcllibrary.component.view.FCLSpinner
+                        android:id="@+id/background_theme_spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center" />

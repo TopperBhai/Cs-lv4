@@ -1003,6 +1003,11 @@
     <string name="settings_launcher_background_dk">Dark Mode Launcher Background (Max 5120x5120)</string>
     <string name="settings_launcher_background_video">Launcher Background (Video .mp4)</string>
     <string name="settings_launcher_animated_bg">Enable Animated Background</string>
+    <string name="settings_launcher_bg_theme">Launcher Background Theme</string>
+    <string name="bg_theme_neon_pulse">🌈 Neon Pulse (Default)</string>
+    <string name="bg_theme_cyber_glitch">⚡ Cyber Glitch</string>
+    <string name="bg_theme_retro_grid">🎮 Retro Grid</string>
+    <string name="bg_theme_static_dark">🌙 Static Dark (Performance Mode)</string>
     <string name="settings_launcher_background_video_volume">Video Background Volume</string>
     <string name="settings_launcher_cursor">Cursor Picture</string>
     <string name="settings_launcher_menu_icon">Menu View Icon</string>

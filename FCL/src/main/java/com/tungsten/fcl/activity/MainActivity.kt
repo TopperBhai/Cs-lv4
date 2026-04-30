@@ -427,22 +427,52 @@ class MainActivity : FCLActivity(), OnSelectListener, View.OnClickListener {
     fun setupLiveBackground() { if (shouldPlayVideo()) { binding.videoView.visibility = View.VISIBLE; binding.videoView.setVideoPath(FCLPath.LIVE_BACKGROUND_PATH); binding.videoView.setOnPreparedListener { mediaPlayer = it; it.isLooping = true; setLiveBackgroundVolume(); binding.videoView.start() }; binding.videoView.setOnCompletionListener { binding.videoView.seekTo(0); binding.videoView.start() }; binding.videoView.setOnErrorListener { _, _, _ -> mediaPlayer = null; true } } else { mediaPlayer = null; binding.videoView.visibility = View.GONE; binding.videoView.stopPlayback() } }
     fun setLiveBackgroundVolume() { mediaPlayer?.let { val volume = sharedPreferences.getInt("videoBackgroundVolume", 100) / 100f; it.setVolume(volume, volume) } }
 
-    // Setup animated GIF background according to setting. If disabled, fall back to local drawable.
+    // ✅ Multi-Theme Background Switcher: 4 animated GIF options + performance fallback
     fun setupAnimatedBackground() {
-        val enabled = sharedPreferences.getBoolean("isAnimatedBgEnabled", true)
+        val theme = sharedPreferences.getString("selected_bg_theme", "theme1") ?: "theme1"
         val imageView = binding.bgImage
-        if (enabled) {
-            try {
-                Glide.with(this)
-                    .asGif()
-                    .load("https://i.ibb.co/tTwCBF30/200-1.gif")
-                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                    .into(imageView)
-            } catch (e: Exception) {
-                imageView.setImageResource(R.drawable.cs_bg)
+        
+        try {
+            when (theme) {
+                "theme1" -> {
+                    // Neon Pulse (Default)
+                    Glide.with(this)
+                        .asGif()
+                        .load("https://i.ibb.co/tTwCBF30/200-1.gif")
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(imageView)
+                }
+                "theme2" -> {
+                    // Cyber Glitch
+                    Glide.with(this)
+                        .asGif()
+                        .load("https://i.ibb.co/HT3kWF14/SDR7l.gif")
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(imageView)
+                }
+                "theme3" -> {
+                    // Retro Grid
+                    Glide.with(this)
+                        .asGif()
+                        .load("https://i.ibb.co/nqsFsG1R/giphy-1.gif")
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(imageView)
+                }
+                "theme4" -> {
+                    // Static Dark (Performance Mode)
+                    Glide.with(this).clear(imageView)
+                    imageView.setImageResource(R.drawable.cs_bg)
+                }
+                else -> {
+                    // Fallback to theme1
+                    Glide.with(this)
+                        .asGif()
+                        .load("https://i.ibb.co/tTwCBF30/200-1.gif")
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(imageView)
+                }
             }
-        } else {
-            Glide.with(this).clear(imageView)
+        } catch (e: Exception) {
             imageView.setImageResource(R.drawable.cs_bg)
         }
     }
