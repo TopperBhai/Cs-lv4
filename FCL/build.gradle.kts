@@ -263,6 +263,7 @@ dependencies {
     implementation(libs.opennbt)
     implementation(libs.gson)
     implementation(libs.appcompat)
+    implementation("androidx.cardview:cardview:1.0.0")
     implementation(libs.core.splashscreen)
     implementation(libs.material)
     implementation(libs.constraintlayout)
