@@ -196,7 +196,7 @@ class MainActivity : FCLActivity(), OnSelectListener, View.OnClickListener {
             versionInfoCard.setOnClickListener {
                 if (uiManager.currentUI !== uiManager.versionUI) {
                     refreshMenuView(null)
-                    title.setTextWithAnim(getString(R.string.version))
+                    title.setText(getString(R.string.version))
                     uiManager.switchUI(uiManager.versionUI)
                 }
             }
@@ -218,7 +218,7 @@ class MainActivity : FCLActivity(), OnSelectListener, View.OnClickListener {
     private fun openAccountUI() {
         if (uiManager.currentUI !== uiManager.accountUI) {
             refreshMenuView(null)
-            binding.title.setTextWithAnim(getString(R.string.account))
+            binding.title.setText(getString(R.string.account))
             uiManager.switchUI(uiManager.accountUI)
         }
     }
@@ -226,7 +226,7 @@ class MainActivity : FCLActivity(), OnSelectListener, View.OnClickListener {
     private fun launchGame() {
         binding.apply {
             if (!Controllers.isInitialized()) {
-                title.setTextWithAnim(getString(R.string.message_loading_controllers))
+                title.setText(getString(R.string.message_loading_controllers))
                 AnimUtil.playTranslationX(playButtonCard, 700, 0f, 50f, -50f, 50f, -50f, 0f).interpolator(OvershootInterpolator()).start()
                 return
             }
@@ -291,15 +291,15 @@ class MainActivity : FCLActivity(), OnSelectListener, View.OnClickListener {
 
         binding.apply {
             when (view) {
-                home -> { title.setTextWithAnim("${getString(R.string.app_name)} ${getString(R.string.app_version)}"); uiManager.switchUI(uiManager.mainUI) }
+                home -> { title.setText("${getString(R.string.app_name)} ${getString(R.string.app_version)}"); uiManager.switchUI(uiManager.mainUI) }
                 manage -> {
                     val v = Profiles.getSelectedProfile().selectedVersion
-                    if (v == null) { refreshMenuView(null); title.setTextWithAnim(getString(R.string.version)); uiManager.switchUI(uiManager.versionUI) } else { title.setTextWithAnim(getString(R.string.manage)); uiManager.manageUI.setVersion(v, Profiles.getSelectedProfile()); uiManager.switchUI(uiManager.manageUI) }
+                    if (v == null) { refreshMenuView(null); title.setText(getString(R.string.version)); uiManager.switchUI(uiManager.versionUI) } else { title.setText(getString(R.string.manage)); uiManager.manageUI.setVersion(v, Profiles.getSelectedProfile()); uiManager.switchUI(uiManager.manageUI) }
                 }
-                download -> { title.setTextWithAnim(getString(R.string.download)); uiManager.switchUI(uiManager.downloadUI) }
-                controller -> { title.setTextWithAnim(getString(R.string.controller)); uiManager.switchUI(uiManager.controllerUI) }
-                multiplayer -> { title.setTextWithAnim(getString(R.string.terracotta)); uiManager.switchUI(uiManager.multiplayerUI) }
-                setting -> { title.setTextWithAnim(getString(R.string.setting)); uiManager.switchUI(uiManager.settingUI) }
+                download -> { title.setText(getString(R.string.download)); uiManager.switchUI(uiManager.downloadUI) }
+                controller -> { title.setText(getString(R.string.controller)); uiManager.switchUI(uiManager.controllerUI) }
+                multiplayer -> { title.setText(getString(R.string.terracotta)); uiManager.switchUI(uiManager.multiplayerUI) }
+                setting -> { title.setText(getString(R.string.setting)); uiManager.switchUI(uiManager.settingUI) }
             }
         }
     }
@@ -310,7 +310,7 @@ class MainActivity : FCLActivity(), OnSelectListener, View.OnClickListener {
         binding.apply {
             when (view) {
                 account -> openAccountUI()
-                start, version -> { if (uiManager.currentUI !== uiManager.versionUI) { refreshMenuView(null); title.setTextWithAnim(getString(R.string.version)); uiManager.switchUI(uiManager.versionUI) } }
+                start, version -> { if (uiManager.currentUI !== uiManager.versionUI) { refreshMenuView(null); title.setText(getString(R.string.version)); uiManager.switchUI(uiManager.versionUI) } }
                 back -> uiManager.onBackPressed()
                 jar -> { jar.isSelected = false; JarExecutorHelper.start(this@MainActivity, this@MainActivity) }
             }
