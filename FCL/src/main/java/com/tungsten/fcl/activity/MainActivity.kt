@@ -450,7 +450,7 @@ class MainActivity : FCLActivity(), OnSelectListener, View.OnClickListener {
     // 3-mode background switcher: static default, image, GIF
     fun setupAnimatedBackground() {
         val mode = sharedPreferences.getString("launcher_bg_mode", "0") ?: "0"
-        val imageView = binding.bgImage
+        val imageView = binding.background
         renderLauncherBackground(this, imageView, mode)
     }
 
