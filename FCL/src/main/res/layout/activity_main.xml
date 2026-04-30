@@ -304,8 +304,7 @@
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:maxLines="1"
-                            android:ellipsize="marquee"
-                            android:selected="true"/>
+                            android:ellipsize="marquee"/>
 
                         <!-- Version progress bar -->
                         <ProgressBar
